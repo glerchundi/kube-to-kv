@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+GO="godep go"
+
+ORG_PATH="github.com/glerchundi"
+REPO_PATH="${ORG_PATH}/kube2kv"
+CLI_PATH="${REPO_PATH}/app"
+
+echo "Building kube2kv..."
+# Static compilation is useful when confd is run in a container
+CGO_ENABLED=0 $GO build -a -installsuffix cgo -ldflags '-s' -o bin/kube2kv ${CLI_PATH}
+
